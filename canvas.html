@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang='en'>
+  <head>
+    <title>Swiry - your ring</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <link href='./js/three/style.css' rel='stylesheet' />
+    <!--<script async src='./js/canvas.js'></script>-->
+	<style type="text/css" media="screen">
+
+	</style>
+  </head>
+  <body>
+<div  name="drawCanvas" >Click to draw<br/></div>
+<canvas id="canvas" width="800" height="300"></canvas>
+<script>
+var canvas = document.getElementById('canvas'),
+context = canvas.getContext('2d');
+
+make_base();
+
+function make_base()
+{
+  base_image = new Image();
+  base_image.src = './sun_temple_stripe.jpg';
+  base_image.onload = function(){
+    context.drawImage(base_image, 100, 100);
+  }
+}
+</script>
+  </body>
+</html>

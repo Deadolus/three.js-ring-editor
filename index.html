@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>Swiry - Swiss jewelry</title>
+
+        <!-- Custom Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!--        <script src='./three.js/build/three.js'></script>-->
+        <script src='./js/three/three.min.js'></script>
+        <script src='./js/three/STLBinaryExporter.js'></script>
+        <script src='./js/FileSaver.js'></script>
+
+        <script src='./js/three/review.js' type="text/javascript"></script>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    </head>
+
+    <body>
+        <div class="container">
+          <div class="row" >
+<h1>Design your own ring and export the resulting STL</h1>
+            <div class="col-sm-10">
+            Design your own ring - draw an image on the canvas below or upload your own picture.<br/>
+            Your changes on the ring will be updated in real time!<br/>
+            Once you are satisfied you may export and 3d print your own personal model.
+            3d print services such as <a href="https://www.materialise.com/">materialise</a> or <a href="https://www.shapeways.com/">Shapeways</a> will print metal versions for you.</br>
+            You can download a template <a href="layout_outside.jpg" download>for the outside</a> or <a href="layout.jpg" download>for the outside</a> of the ring.<br/>
+            <br/>
+            Not satisfied with your results? <a href="https://www.swiry.ch/#contact"> We can help you translate your visions</a><br/>
+          </div>
+          </div>
+          <div class="col-xs-12" style="height:20px;"></div>
+
+            <div class="row" >
+                <iframe id=viewer src="ring.html" frameBorder="0" scrolling="no" class="col-sm-12" height="500px">
+                    Your browser does not support iframes
+                </iframe>
+            </div>
+            <!--<div id="canvas" name="drawCanvas" style="background: url('layout.jpg')"></div>-->
+<div class="col-xs-12" style="height:20px;"></div>
+            <div class="row" >
+              <div class="col-sm-12">
+                <div id="canvas" style="margin-right:auto; margin-left: auto; width: 1024px;">
+                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4">
+<div class="form-group">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" id="drawWireframe" value="wireframe">
+<label class="form-check-label" id="labelWireframe" for="drawWireframe">Draw wireframe</label>
+                </div>
+</div>
+                <div class="col-sm-4">
+<div class="form-group" style="width: 100%">
+<div  style="width: 100%">
+                    <input class="form-check-input" type="checkbox" id="drawBothSides" value="bothsides" >
+<label class="form-check-label" id="labelDrawBothSides" for="drawBothSides" >Draw on inside and outside</label>
+</div>
+<div style="width: 100%">
+<input class="form-check-input" type="checkbox" id="mirrorInside" disabled>
+<label class="form-check-label" id="labelMirrorInside" for="mirrorInside" >Mirror inside to align to outside</label>
+</div>
+                </div>
+</div>
+                <div class="col-sm-4">
+                    <div class="form-group"  style="width: 100%">
+                        <input type="range" id="displacementRange" min="-0.1" value="-0.01" max="0.1" step="0.01" style="width: 100%">
+<label id="labelDisplacementRange" for="displacementRange" >Displacement
+                    </label>
+                    <input type="range" id="displacementOffset" min="-0.1" value="-0.00" max="0.1" step="0.01" style="width: 100%">
+<label id="labelDisplacementOffset" for="displacementOffset" >Displacement offset
+                </label>
+                </div>
+</div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="btn btn-outline-primary"  style="width: 100%">
+                        Upload image<input type="file" id="imageLoader" name="imageLoader" hidden />
+                    </label>
+                </div>
+                <div class="col-sm-4">
+                    <input type="button" class="btn btn-outline-primary" id="resetCanvas" value="Reset Canvas" style="width: 100%">
+                </div>
+                <div class="col-sm-4">
+                <div class="dropdown">
+                  <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuMaterial" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="width: 100%">
+                    Choose material
+                  </button>
+                  <div class="dropdown-menu dropdownMenuItems" aria-labelledby="dropdownMenuButton"  style="width: 100%">
+                    <a class="dropdown-item" href="#" id="gold"  style="width: 100%">Gold material</a>
+                    <a class="dropdown-item" href="#" id="silver"  style="width: 100%">Silver material</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-sm-4">
+                    <input type="button" class="btn btn-outline-primary" id="exportSTL" value="exportSTL" style="width: 100%" >
+                </div>
+
+            </div>
+                        <div class="col-xs-12" style="height:20px;"></div>
+            <div class="row">
+                <div class="col-sm-10">
+                     We are jewelry designers. <a href="https://www.swiry.ch/#contact">Contact us</a> if you want to work together to create your own ring.<br/><br/>
+
+                </div>
+<div class="col-sm-10">
+<h3>Technical details</h3>
+This is realized by live editing the vertexes of a Three.JS model via a bump map  <br>
+and then directly capturing the resulting modified graphic vertices from the graphic buffer.
+Then the model is converted them to an STL object and exported.<br>
+This is more a demo of what is possible with Three.JS - if you accidentally design a ring you like
+it would be awesome.
+</div>
+            </div>
+
+        </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<script async src='./js/canvas.js'></script>
+
+    </body>
+</html>
