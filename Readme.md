@@ -12,6 +12,8 @@ Not satisfied with your results? We can help you translate your visions
 
 
 **Technical details**
+
+
 This is realized by live editing the vertexes of a Three.JS model via a bump map
 and then directly capturing the resulting modified graphic vertices from the graphic buffer. Then the model is converted them to an STL object and exported.
 This is more a demo of what is possible with Three.JS - if you accidentally design a ring you like it would be awesome.
